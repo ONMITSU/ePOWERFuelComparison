@@ -1,0 +1,49 @@
+﻿@inherits DisplayOilBase
+<h3>Oil Price</h3>
+
+@if (Oils == null)
+{
+    <h3>Loading oil price...</h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Price Tomorrow</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oil in Oils)
+            {
+                string priceTomorrowClass = "";
+                string priceTomorrowSymbol = "";
+                @if (oil.PriceDifTomorrow > 0)
+                {
+                    priceTomorrowClass = "text-danger";
+                    priceTomorrowSymbol = "⏶";
+                }
+                else if (oil.PriceDifTomorrow < 0)
+                {
+                    priceTomorrowClass = "text-success";
+                    priceTomorrowSymbol = "⏷";
+                }
+
+                <tr>
+                    <td><img src="@oil.IconWeb2" alt="@oil.OilName" /></td>
+                    <td>@oil.OilName</td>
+                    <td>@oil.PriceToday</td>
+                    <td class="@priceTomorrowClass">@oil.PriceTomorrow@priceTomorrowSymbol
+                        @if (oil.PriceDifTomorrow != 0)
+                        {
+                            @string.Format(" ({0:0.00})", oil.PriceDifTomorrow);
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

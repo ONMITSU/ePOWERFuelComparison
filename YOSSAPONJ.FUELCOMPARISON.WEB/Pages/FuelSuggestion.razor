@@ -1,0 +1,18 @@
+﻿@inherits FuelSuggestionBase
+@if (SuggestionResult == null)
+{
+    <h3>Loading suggestion result...</h3>
+}
+else
+{
+    <h3 class="text-center p-3">Recommented fuel for your e-power vehicle is</h3>
+    <h2 class="text-center">@SuggestionResult.RecommendOilName</h2>
+    <img class="mx-auto d-block" src="@SuggestionResult.OilDetail.Icon" alt="@SuggestionResult.OilDetail.OilName" />
+
+    <p class="pt-5 text-center">As of today price difference between Gasohol 95 and E20 is <mark>@String.Format("{0:P2}", SuggestionResult.DifPercentage / 100)</mark></p>
+
+    <p class="text-end"><small><em>E20 will recommended when a difference is greater than 6.71%*<br />
+                <a href="https://www.facebook.com/groups/nissan.kicks.epower/posts/1118962398827638/" target="_blank" rel="noopener noreferrer">* How to calculate -- Wanchai Khanti - Facebook Group: Nissan KICKS e-POWER Club (Thailand)</a>
+        </em></small>
+    </p>
+}
