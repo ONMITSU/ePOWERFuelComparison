@@ -27,7 +27,7 @@ jobs:
           
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish Web/Web.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
+        run: dotnet publish YOSSAPONJ.FUELCOMPARISON.WEB/YOSSAPONJ.FUELCOMPARISON.WEB.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
         
       - name: Deploy to GitHub Pages
