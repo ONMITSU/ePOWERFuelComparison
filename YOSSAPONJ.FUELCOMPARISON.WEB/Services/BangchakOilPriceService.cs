@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Net.Http;
 using YOSSAPONJ.FUELCOMPARISON.WEB.Models;
 using YOSSAPONJ.FUELCOMPARISON.WEB.Services.Contracts;
@@ -51,8 +51,8 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
                     {
                         foreach (var oil in _oilList)
                         {
-                            oil.PriceDifYesterday = oil.PriceToday - oil.PriceYesterday;
-                            oil.PriceDifTomorrow = oil.PriceToday - oil.PriceTomorrow;
+                            oil.PriceDifYesterday = oil.PriceYesterday - oil.PriceToday;
+                            oil.PriceDifTomorrow = oil.PriceTomorrow - oil.PriceToday;
                         }
                     }
                 }
