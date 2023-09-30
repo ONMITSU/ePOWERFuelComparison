@@ -9,6 +9,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
     {
         private HttpClient _httpClient;
         private BangchakOilListModel[] _oilList;
+        private BangchakOilPriceModel[] _oilPrice;
 
         public BangchakOilPriceService(HttpClient httpClient)
         {
@@ -17,25 +18,23 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
 
         public async Task<BangchakOilPriceModel[]> GetOilPrice()
         {
-            BangchakOilPriceModel[] result = new BangchakOilPriceModel[0];
-
-            HttpResponseMessage response = await _httpClient.GetAsync("https://corsproxy.io/?https://oil-price.bangchak.co.th/ApiOilPrice2/en");
-
-            if (response.IsSuccessStatusCode)
+            if (_oilPrice == null)
             {
-                string content = await response.Content.ReadAsStringAsync();
+                BangchakOilPriceModel[] result = new BangchakOilPriceModel[0];
 
-                result = JsonConvert.DeserializeObject<BangchakOilPriceModel[]>(content);
-                
-                //Console.WriteLine("Response Content: " + content);
-                //Console.WriteLine(result);
-            }
-            else
-            {
-                //Console.WriteLine("Error: " + response.StatusCode);
+                HttpResponseMessage response = await _httpClient.GetAsync("https://corsproxy.io/?https://oil-price.bangchak.co.th/ApiOilPrice2/en");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    result = JsonConvert.DeserializeObject<BangchakOilPriceModel[]>(content);
+                }
+
+                _oilPrice = result;
             }
 
-            return result;
+            return _oilPrice;
         }
 
         public async Task<BangchakOilListModel[]> GetOilList()
