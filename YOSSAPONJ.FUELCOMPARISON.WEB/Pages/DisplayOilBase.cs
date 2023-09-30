@@ -12,10 +12,15 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages
 
         public BangchakOilListModel[] Oils { get; set; }
 
+        public BangchakOilPriceModel OilPriceDetail { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
-            Oils = await BangchakOilPriceService.GetOilList();
-            Oils = Oils.Where(x => x.OilName.ToUpper().Contains("GASOHOL")).ToArray();
+            var oilPrice = await BangchakOilPriceService.GetOilPrice();
+            var oilList = await BangchakOilPriceService.GetOilList();
+
+            Oils = oilList.Where(x => x.OilName.ToUpper().Contains("GASOHOL")).ToArray();
+            OilPriceDetail = oilPrice.FirstOrDefault();
         }
     }
 }

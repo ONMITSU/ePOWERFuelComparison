@@ -1,12 +1,13 @@
 ﻿@inherits DisplayOilBase
 <h3>Oil Price</h3>
 
-@if (Oils == null)
+@if (Oils == null || OilPriceDetail == null)
 {
     <h3>Loading oil price...</h3>
 }
 else
 {
+    <p>Last updated on @OilPriceDetail.OilDateNow @OilPriceDetail.OilMessageTime</p>
     <table class="table">
         <thead>
             <tr>
