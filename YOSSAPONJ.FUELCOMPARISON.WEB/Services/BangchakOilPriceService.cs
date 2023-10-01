@@ -29,6 +29,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
                     string content = await response.Content.ReadAsStringAsync();
 
                     result = JsonConvert.DeserializeObject<BangchakOilPriceModel[]>(content);
+                    result.FirstOrDefault().LastFetched = DateTime.Now;
                 }
 
                 _oilPrice = result;

@@ -27,5 +27,10 @@
         public string OilRemark { get; set; }
         public string OilList { get; set; }
         public string GasList { get; set; }
+
+        /// <summary>
+        /// Log by local application - last data fetch date.
+        /// </summary>
+        public DateTime LastFetched { get; set; }
     }
 }
