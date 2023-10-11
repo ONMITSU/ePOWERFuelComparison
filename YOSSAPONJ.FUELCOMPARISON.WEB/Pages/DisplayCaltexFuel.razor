@@ -1,0 +1,34 @@
+﻿@inherits DisplayCaltexFuelBase
+
+<h3>Caltex Fuel Price</h3>
+
+@if (FuelPrice == null && FuelList == null)
+{
+    <h3>Loading caltex fuel price...</h3>
+}
+else
+{
+    <ul>
+        <li>Last updated on @FuelPrice.LastUpdate.ToString("dd/MM/yyyy HH:mm:ss")</li>
+        <li>Last fetched on @FuelPrice.LastFetched.ToString("dd/MM/yyyy HH:mm:ss")</li>
+    </ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fuel in FuelList)
+            {
+                <tr>
+                    <td><img src="@fuel.Icon" alt="@fuel.FuelName" /></td>
+                    <td>@fuel.FuelName</td>
+                    <td>@string.Format("{0:0.00}",fuel.FuelPrice)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
