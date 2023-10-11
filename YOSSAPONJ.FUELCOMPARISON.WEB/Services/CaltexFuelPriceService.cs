@@ -7,6 +7,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
     public class CaltexFuelPriceService : ICaltexFuelPriceService
     {
         private HttpClient _httpClient;
+        private CaltexFuelPriceModel _fuelPrice;
         private readonly string _baseURL = "https://www.caltex.com";
         public CaltexFuelPriceService(HttpClient httpClient)
         {
@@ -15,8 +16,13 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
 
         public async Task<CaltexFuelPriceModel> GetFuelPrice()
         {
-            string html = await GetRawPage();
-            return await ParseHtmlToModel(html);
+            if (_fuelPrice == null)
+            {
+                string html = await GetRawPage();
+                _fuelPrice = await ParseHtmlToModel(html);
+            }
+
+            return _fuelPrice;
         }
 
         #region Private Function
