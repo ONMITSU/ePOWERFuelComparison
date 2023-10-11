@@ -3,7 +3,7 @@ using YOSSAPONJ.FUELCOMPARISON.WEB.Models;
 using YOSSAPONJ.FUELCOMPARISON.WEB.Services;
 using YOSSAPONJ.FUELCOMPARISON.WEB.Services.Contracts;
 
-namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages
+namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.Bangchak
 {
     public class DisplayOilBase : ComponentBase
     {

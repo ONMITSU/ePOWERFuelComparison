@@ -2,7 +2,7 @@
 using YOSSAPONJ.FUELCOMPARISON.WEB.Models;
 using YOSSAPONJ.FUELCOMPARISON.WEB.Services.Contracts;
 
-namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages
+namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.Caltex
 {
     public class DisplayCaltexFuelBase : ComponentBase
     {
