@@ -7,46 +7,93 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
     public class CaltexFuelPriceService : ICaltexFuelPriceService
     {
         private HttpClient _httpClient;
-
+        private readonly string _baseURL = "https://www.caltex.com";
         public CaltexFuelPriceService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<string> GetFuelPrice()
+        public async Task<CaltexFuelPriceModel> GetFuelPrice()
         {
-            var html = await GetRawPage();
-            var result = await ParseHtml(html);
-            return "";
+            string html = await GetRawPage();
+            return await ParseHtmlToModel(html);
         }
 
+        #region Private Function
         private async Task<string> GetRawPage()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("https://corsproxy.io/?https://www.caltex.com/th/motorists/products-and-services/fuel-prices.html");
+            HttpResponseMessage response = await _httpClient.GetAsync("https://corsproxy.io/?" + _baseURL + "/th/motorists/products-and-services/fuel-prices.html");
             return await response.Content.ReadAsStringAsync();
         }
-
-        private async Task<List<string>> ParseHtml(string html)
+        private async Task<CaltexFuelPriceModel> ParseHtmlToModel(string html)
         {
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var fuelPriceTable = htmlDoc.DocumentNode.SelectNodes("//div[contains(@class, \"price-item\")]");
+            HtmlNodeCollection fuelPriceTable = htmlDoc.DocumentNode.SelectNodes("//div[contains(@class, \"price-item\")]");
+            string fuelPriceLastUpdate = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, \"info-text\")]//p").InnerHtml;
+
+            CaltexFuelPriceModel caltexFuelPrice = new CaltexFuelPriceModel();
+
+            caltexFuelPrice.LastFetched = DateTime.Now;
+            caltexFuelPrice.LastUpdateText = fuelPriceLastUpdate;
+            caltexFuelPrice.LastUpdate = ConvertUpdateTextToDateTime(fuelPriceLastUpdate);
+            caltexFuelPrice.Fuels = new List<CaltexFuelListModel>();
 
             foreach (var detail in fuelPriceTable)
             {
-                var fuel = detail.SelectNodes(".//div[contains(@class, \"wrapper\")]//p").ToArray();
-                var fuelIcon = detail.SelectSingleNode(".//div[contains(@class, \"wrapper\")]//span//img").GetAttributeValue("src", "");
+                CaltexFuelListModel model = new CaltexFuelListModel();
 
-                foreach (var data in fuel)
+                HtmlNode[] fuel = detail.SelectNodes(".//div[contains(@class, \"wrapper\")]//p").ToArray();
+                string fuelIcon = detail.SelectSingleNode(".//div[contains(@class, \"wrapper\")]//span//img").GetAttributeValue("src", "");
+
+                for (int i = 0; i < fuel.Length; i++)
                 {
-                    var res = data.InnerHtml;
-                    Console.WriteLine(res);
+                    switch (i)
+                    {
+                        case 0:
+                            // Fuel Name
+                            model.FuelName = fuel[0].InnerHtml;
+                            break;
+                        case 1:
+                            // Fuel Price
+                            model.FuelPrice = ConvertPriceToDouble(fuel[1].InnerHtml);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                model.Icon = _baseURL + fuelIcon;
+
+                caltexFuelPrice.Fuels.Add(model);
             }
 
-            return new List<string>();
+            return caltexFuelPrice;
         }
+        private DateTime ConvertUpdateTextToDateTime(string updateText)
+        {
+            DateTime result;
+            updateText = updateText.Replace("ปรับปรุงล่าสุด ", string.Empty);
 
+            if (!DateTime.TryParseExact(
+                updateText, 
+                "MMMM dd, yyyy hh:mmtt", 
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None, 
+                out result))
+            {
+                result = DateTime.Now;
+            }
+            return result;
+        }
+        private double ConvertPriceToDouble(string price)
+        {
+            double result;
+            price = price.Replace("BHT ", string.Empty);
+
+            if (!double.TryParse(price, out result)) result = 0;
+            return result;
+        }
+        #endregion Private Function
     }
 }
