@@ -1,13 +1,15 @@
 ﻿@inherits DisplayOilBase
-<h3>Bangchak Fuel Price</h3>
+<h4>Bangchak Fuel Price</h4>
 
 @if (Oils == null || OilPriceDetail == null)
 {
-    <h3>Loading fuel price...</h3>
+    <h4>Loading fuel price...</h4>
 }
 else
 {
-    <p>Last fetched on @OilPriceDetail.LastFetched.ToString("dd/MM/yyyy HH:mm:ss")</p>
+    <ul>
+        <li>Last fetched on @OilPriceDetail.LastFetched.ToString("dd/MM/yyyy HH:mm:ss")</li>
+    </ul>
     <table class="table">
         <thead>
             <tr>
