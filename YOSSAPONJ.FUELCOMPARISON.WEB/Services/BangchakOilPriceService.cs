@@ -10,6 +10,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
         private HttpClient _httpClient;
         private BangchakOilListModel[] _oilList;
         private BangchakOilPriceModel[] _oilPrice;
+        private readonly string _baseProxy = "https://expensemanagerapi-op3eh0d6.b4a.run/Proxy?uri=";
 
         public BangchakOilPriceService(HttpClient httpClient)
         {
@@ -22,7 +23,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
             {
                 BangchakOilPriceModel[] result = new BangchakOilPriceModel[0];
 
-                HttpResponseMessage response = await _httpClient.GetAsync("https://corsproxy.io/?https://oil-price.bangchak.co.th/ApiOilPrice2/en");
+                HttpResponseMessage response = await _httpClient.GetAsync(_baseProxy + "https://oil-price.bangchak.co.th/ApiOilPrice2/en");
 
                 if (response.IsSuccessStatusCode)
                 {

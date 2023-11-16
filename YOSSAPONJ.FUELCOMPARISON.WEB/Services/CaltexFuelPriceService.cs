@@ -8,6 +8,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
     {
         private HttpClient _httpClient;
         private CaltexFuelPriceModel _fuelPrice;
+        private readonly string _baseProxy = "https://expensemanagerapi-op3eh0d6.b4a.run/Proxy?uri=";
         private readonly string _baseURL = "https://www.caltex.com";
         public CaltexFuelPriceService(HttpClient httpClient)
         {
@@ -28,7 +29,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
         #region Private Function
         private async Task<string> GetRawPage()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("https://corsproxy.io/?" + _baseURL + "/th/motorists/products-and-services/fuel-prices.html");
+            HttpResponseMessage response = await _httpClient.GetAsync(_baseProxy + _baseURL + "/th/motorists/products-and-services/fuel-prices.html");
             return await response.Content.ReadAsStringAsync();
         }
         private async Task<CaltexFuelPriceModel> ParseHtmlToModel(string html)
