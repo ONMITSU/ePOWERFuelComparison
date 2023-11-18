@@ -9,6 +9,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
         private HttpClient _httpClient;
         private CaltexFuelPriceModel _fuelPrice;
         private readonly string _baseURL = "https://expensemanagerapi-op3eh0d6.b4a.run/Proxy";
+        private readonly string _baseCaltexURL = "https://www.caltex.com";
         public CaltexFuelPriceService(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -69,7 +70,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
                             break;
                     }
                 }
-                model.Icon = _baseURL + fuelIcon;
+                model.Icon = _baseCaltexURL + fuelIcon;
 
                 caltexFuelPrice.Fuels.Add(model);
             }
