@@ -29,11 +29,7 @@
       "url": "_framework\/icudt_no_CJK.dat.br"
     },
     {
-      "hash": "sha256-V7Znlb5zJnN8ABE3mwl1su8cCKXEi4JxUDhrSBDPPdk=",
-      "url": "_framework\/icudt.dat.br"
-    },
-    {
-      "hash": "sha256-hRULBJOsWswVczEYAwiaBIfHgjcdr9ox4FWHjvseMUY=",
+      "hash": "sha256-cwcQxlaLjtp+XrBR7yGVpZtSE3z3djondNH6pgrvcbY=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -297,7 +293,7 @@
       "url": "_framework\/System.Xml.XDocument.dll.br"
     },
     {
-      "hash": "sha256-yhMEaP1wD2qgl5UrpRdZKgvXzAMqs+SpTOJ5Yl75EIA=",
+      "hash": "sha256-o5APxzW6N2K2uiXluyF4dVyUSeWBDoi9Ph9sN29O7W4=",
       "url": "_framework\/YOSSAPONJ.FUELCOMPARISON.WEB.dll.br"
     },
     {
@@ -385,5 +381,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "WQIpNhuw"
+  "version": "nKjK1VGc"
 };
