@@ -1,0 +1,31 @@
+﻿@inherits DisplayNewCaltexFuelBase
+
+<h4>Caltex Fuel Price</h4>
+
+@if (StationInfo == null && FuelList == null)
+{
+    <h4>Loading caltex fuel price...</h4>
+}
+else
+{
+    <ul>
+        <li>Effective Date @StationInfo.EffectiveDate?.ToString("dd/MM/yyyy HH:mm:ss")</li>
+    </ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fuel in FuelList)
+            {
+                <tr>
+                    <td>@fuel.Key</td>
+                    <td>@string.Format("{0:0.00}",fuel.Value)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

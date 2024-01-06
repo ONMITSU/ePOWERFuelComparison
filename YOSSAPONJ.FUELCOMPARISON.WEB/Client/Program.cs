@@ -18,6 +18,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB
             builder.Services.AddScoped<IBangchakOilPriceService, BangchakOilPriceService>();
             builder.Services.AddScoped<IFuelSuggestionService, FuelSuggestionService>();
             builder.Services.AddScoped<ICaltexFuelPriceService, CaltexFuelPriceService>();
+            builder.Services.AddScoped<IFuelPriceService, FuelPriceService>();
 
             await builder.Build().RunAsync();
         }

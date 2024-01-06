@@ -1,5 +1,6 @@
 ﻿@using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.Bangchak
 @using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.Caltex
+@using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.NewCaltex
 @inherits FuelPriceBase
 <div class="form-group row pb-3">
     <label for="station-filter" class="col-sm-3 col-form-label">Fuel Price from staton</label>
@@ -19,6 +20,9 @@
         <DisplayOil></DisplayOil>
         break;
     case Station.Caltex:
+        <DisplayNewCaltexFuel></DisplayNewCaltexFuel>
+        break;
+    case Station.OldCaltex:
         <DisplayCaltexFuel></DisplayCaltexFuel>
         break;
 }

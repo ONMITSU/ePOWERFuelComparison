@@ -9,7 +9,8 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice
         public enum Station
         {
             Bangchak,
-            Caltex
+            Caltex,
+            OldCaltex
         }
 
         protected override async Task OnInitializedAsync()
