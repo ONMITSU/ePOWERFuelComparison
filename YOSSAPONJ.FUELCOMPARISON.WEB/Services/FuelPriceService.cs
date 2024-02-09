@@ -9,8 +9,11 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
     {
         private HttpClient _httpClient;
         private FuelPriceModel _fuelPrice;
+#if DEBUG
+        private readonly string _baseURL = "https://localhost:7292/Proxy";
+#else
         private readonly string _baseURL = "https://expensemanagerapi-op3eh0d6.b4a.run/Proxy";
-
+#endif
         public FuelPriceService(HttpClient httpClient)
         {
             _httpClient = httpClient;

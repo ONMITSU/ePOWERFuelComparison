@@ -1,0 +1,121 @@
+﻿@inherits DisplayEPPOBase
+
+<div class="row pb-3">
+    <div class="col">
+        <h4>EPPO Fuel Price</h4>
+    </div>
+    <div class="col text-end">
+        <button class="btn btn-secondary btn-sm" @onclick="() => OnResetStation()">Reset</button>
+    </div>
+</div>
+
+
+@if (PriceInfo == null)
+{
+    <h4>Loading EPPO fuel price...</h4>
+}
+else
+{
+    <div class="form-group row pb-3">
+        <label for="station-a-filter" class="col-sm-1 col-form-label">Station A</label>
+        <div class="col-sm-5">
+            <select class="form-control form-select" id="station-a-filter" @bind="@SelectedStationA">
+                @foreach (var station in PriceInfo.Stations.Select(x => x.Name).OrderBy(x => x))
+                {
+                    <option value="@station">@station</option>
+                }
+            </select>
+        </div>
+        <label for="station-b-filter" class="col-sm-1 col-form-label">Station B</label>
+        <div class="col-sm-5">
+            <select class="form-control form-select" id="station-b-filter" @bind="@SelectedStationB" disabled="@string.IsNullOrEmpty(SelectedStationA)">
+                <option hidden disabled selected value></option>
+                @foreach (var station in PriceInfo.Stations.Where(x => x.Name != SelectedStationA).Select(x => x.Name).OrderBy(x => x))
+                {
+                    <option value="@station">@station</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>
+                    @if (StationA != null)
+                    {
+                        <img src="@StationA.IconURI" alt="@StationA.Name" height="20" />
+                        
+                        <br />
+                        @StationA.Name
+                    }
+                    else
+                    {
+                        <text>-</text>
+                    }
+                </th>
+                @if (!string.IsNullOrEmpty(SelectedStationB))
+                {
+                    <th>
+                        @if (StationB != null)
+                        {
+                            <img src="@StationB.IconURI" alt="@StationB.Name" height="20" />
+
+                            <br />
+                            @StationB.Name
+                        }
+                        else
+                        {
+                            <text>-</text>
+                        }
+                    </th>
+                    <th>Compare (A - B)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (StationA != null && StationB != null)
+            {
+                foreach (var itemA in StationA.FuelPrices)
+                {
+                    double? itemBValue = StationB.FuelPrices[itemA.Key];
+                    double? priceDiff = itemA.Value - itemBValue;
+
+                    <tr class="@((itemA.Value == null && itemBValue == null) ? "table-secondary" : "")">
+                        <td>@itemA.Key</td>
+                        <td>@(itemA.Value != null ? string.Format("{0:0.00}", itemA.Value) : "-")</td>
+                        <td>@(itemBValue != null ? string.Format("{0:0.00}", itemBValue) : "-")</td>
+                        <td class="@(priceDiff < 0 ? "text-success" : priceDiff > 0 ? "text-danger" : "")">@(priceDiff != null ? string.Format("{0:0.00}", priceDiff) : "-")</td>
+                    </tr>
+                }
+                <tr>
+                    <td>Effectice Date</td>
+                    <td>@StationA.EffectiveDate?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>@StationB.EffectiveDate?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td></td>
+                </tr>
+            }
+            else if (StationA != null && StationB == null)
+            {
+                foreach (var itemA in StationA.FuelPrices)
+                {
+                    <tr class="@((itemA.Value == null) ? "table-secondary" : "")">
+                        <td>@itemA.Key</td>
+                        <td>@string.Format("{0:0.00}", itemA.Value)</td>
+                    </tr>
+                }
+                <tr>
+                    <td>Effectice Date</td>
+                    <td>@StationA.EffectiveDate?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2">Please select station first.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

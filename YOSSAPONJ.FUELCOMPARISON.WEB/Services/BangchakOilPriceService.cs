@@ -10,7 +10,11 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
         private HttpClient _httpClient;
         private BangchakOilListModel[] _oilList;
         private BangchakOilPriceModel[] _oilPrice;
+#if DEBUG
+        private readonly string _baseURL = "https://localhost:7292/Proxy";
+#else
         private readonly string _baseURL = "https://expensemanagerapi-op3eh0d6.b4a.run/Proxy";
+#endif
 
         public BangchakOilPriceService(HttpClient httpClient)
         {

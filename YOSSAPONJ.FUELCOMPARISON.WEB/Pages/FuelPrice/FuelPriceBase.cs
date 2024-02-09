@@ -10,7 +10,8 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice
         {
             Bangchak,
             Caltex,
-            OldCaltex
+            //OldCaltex,
+            EPPO,
         }
 
         protected override async Task OnInitializedAsync()

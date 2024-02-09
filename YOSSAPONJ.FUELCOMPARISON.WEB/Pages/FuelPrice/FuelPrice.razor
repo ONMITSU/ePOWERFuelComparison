@@ -1,9 +1,10 @@
 ﻿@using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.Bangchak
 @using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.Caltex
 @using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.NewCaltex
+@using YOSSAPONJ.FUELCOMPARISON.WEB.Pages.FuelPrice.EPPO
 @inherits FuelPriceBase
 <div class="form-group row pb-3">
-    <label for="station-filter" class="col-sm-3 col-form-label">Fuel Price from staton</label>
+    <label for="station-filter" class="col-sm-3 col-form-label">Fuel Price from source</label>
     <div class="col-sm-9">
         <select class="form-control form-select" id="station-filter" @bind="@SelectedStation">
             @foreach (var item in Enum.GetValues(typeof(Station)))
@@ -22,8 +23,11 @@
     case Station.Caltex:
         <DisplayNewCaltexFuel></DisplayNewCaltexFuel>
         break;
-    case Station.OldCaltex:
+@*     case Station.OldCaltex:
         <DisplayCaltexFuel></DisplayCaltexFuel>
+        break; *@
+    case Station.EPPO:
+        <DisplayEPPO></DisplayEPPO>
         break;
 }
 
