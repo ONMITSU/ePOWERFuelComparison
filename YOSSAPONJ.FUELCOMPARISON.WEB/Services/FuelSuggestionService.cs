@@ -30,27 +30,39 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
 
             if (E10Detail != null && E20Detail != null)
             {
-                double difResult = ((E10Detail.PriceToday - E20Detail.PriceToday) / E10Detail.PriceToday) * 100;
+                double difResult = CalculatePercentageDifference(E10Detail.PriceToday, E20Detail.PriceToday);
                 
-                if (difResult < 6.71)
+                if (difResult < 6.71 && (E10Detail.PriceToday > E20Detail.PriceToday))
                 {
                     result = new FuelSuggestionResultModel(){
                         DifPercentage = difResult,
                         RecommendOilFullName = GASOHOL95_E10,
                         RecommendOilName = "Gasohol 95",
                         OilDetail = E10Detail,
-                        
                     };
                 }
                 else
                 {
-                    result = new FuelSuggestionResultModel()
+                    if (E10Detail.PriceToday > E20Detail.PriceToday)
                     {
-                        DifPercentage = difResult,
-                        RecommendOilFullName = GASOHOL95_E20,
-                        RecommendOilName = "E20",
-                        OilDetail = E20Detail,
-                    };
+                        result = new FuelSuggestionResultModel()
+                        {
+                            DifPercentage = difResult,
+                            RecommendOilFullName = GASOHOL95_E20,
+                            RecommendOilName = "E20",
+                            OilDetail = E20Detail,
+                        };
+                    }
+                    else
+                    {
+                        result = new FuelSuggestionResultModel()
+                        {
+                            DifPercentage = difResult,
+                            RecommendOilFullName = GASOHOL95_E10,
+                            RecommendOilName = "Gasohol 95 (Abnormal E20 Price)",
+                            OilDetail = E10Detail,
+                        };
+                    }
                 }
             }
 
@@ -64,5 +76,13 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
             return oilList.Where(x => x.OilName == oilName).FirstOrDefault();
         }
 
+        private double CalculatePercentageDifference(double value1, double value2)
+        {
+            double absoluteDifference = Math.Abs(value1 - value2);
+            double average = (value1 + value2) / 2;
+
+            return (absoluteDifference / average) * 100;
+        }
     }
+
 }
