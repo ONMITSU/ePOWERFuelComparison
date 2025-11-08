@@ -13,7 +13,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
 #if DEBUG
         private readonly string _baseURL = "https://localhost:7292/Proxy";
 #else
-        private readonly string _baseURL = "https://expensemanagerapi-op3eh0d6.b4a.run/Proxy";
+        private readonly string _baseURL = "https://mflsnueuszqa.ap-southeast-1.clawcloudrun.com/Proxy";
 #endif
 
         public BangchakOilPriceService(HttpClient httpClient)
