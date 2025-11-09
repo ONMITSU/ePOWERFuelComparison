@@ -8,7 +8,7 @@ namespace YOSSAPONJ.FUELCOMPARISON.WEB.Services
     {
         private HttpClient _httpClient;
         private CaltexFuelPriceModel _fuelPrice;
-        private readonly string _baseURL = "https://mflsnueuszqa.ap-southeast-1.clawcloudrun.com/Proxy";
+        private readonly string _baseURL = "https://yostem-api.ddns.net/Proxy";
         private readonly string _baseCaltexURL = "https://www.caltex.com";
         public CaltexFuelPriceService(HttpClient httpClient)
         {
