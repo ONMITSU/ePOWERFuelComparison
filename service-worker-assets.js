@@ -261,11 +261,11 @@
       "url": "_framework\/System.dll.br"
     },
     {
-      "hash": "sha256-K6M7CK2KIbL2TI\/SEkESUCK1NKLuM97TOi\/LmpcXvmg=",
+      "hash": "sha256-k7BJIbHTYsA1MNoyAOnlkELm6j453QuYAPYiVeRWsdM=",
       "url": "_framework\/YOSSAPONJ.FUELCOMPARISON.WEB.dll.br"
     },
     {
-      "hash": "sha256-vzcP2ORnxnkIeNfH5M7lYU\/BhyJt+DP\/NTc6FuxG+UU=",
+      "hash": "sha256-g5bssOme3yFEDkTjmNYqH1l+aRKMHwTb1ILeVMeDv1g=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -381,5 +381,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "EjruwD4y"
+  "version": "HyH9RNq2"
 };
